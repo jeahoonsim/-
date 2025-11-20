@@ -90,11 +90,96 @@ win.onkeypress(player_up, "Up")
 win.onkeypress(player_down, "Down")
 win.onkeyrelease(stop_player, "Up")
 win.onkeyrelease(stop_player, "Down")
+win.onkeypress(reset_game, "space")
+win.onkeypress(reset_score, "Return")  # 엔터키로 점수 초기화
 
+#게임 루프
+game_over = False
 
-
+def check_game_over():
+    global game_over
+    if score_a >= 1 or score_b >= 1: 
+        game_over = True
+        score_display.clear()
+        score_display.goto(0, 0)
+        score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+        score_display.goto(0, -30)
+        score_display.write("Game Over! Press Space to Restart", align="center", font=("Courier", 24, "normal"))
 
 while True:
     win.update()
-   
-    player_paddle.sety(player_paddle.ycor() + player_paddle_dy)
+
+    if game_over:
+        continue
+    #벽 넘어가지 마
+    new_player_y = player_paddle.ycor() + player_paddle_dy
+    if new_player_y < 240 and new_player_y > -240:
+        player_paddle.sety(new_player_y)
+    # 공 이동
+    ball.setx(ball.xcor() + ball.dx * 5)
+    ball.sety(ball.ycor() + ball.dy)
+    ball.speed(50)
+
+   # 벽 충돌 (위, 아래)
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1  # 방향 반전
+        ball.dy += random.uniform(-0.1, 0.1)  # 랜덤한 y 속도 추가
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1  # 방향 반전
+        ball.dy += random.uniform(-0.1, 0.1)  # 랜덤한 y 속도 추가 
+
+    # 패들 충돌 (플레이어)
+    if ball.xcor() < -340 and player_paddle.ycor() - 50 < ball.ycor() < player_paddle.ycor() + 50:
+        ball.setx(-340)
+        ball.dx *= -1
+        # 공이 패들의 위쪽에 닿으면 위로, 아래쪽에 닿으면 아래로
+        if ball.ycor() > player_paddle.ycor():
+            ball.dy = abs(ball.dy)
+        else:
+            ball.dy = -abs(ball.dy)
+        ball.dx *= 1.1  # 속도 증가
+        ball.dy *= 1.1  # 속도 증가
+
+    # AI 패들 움직임 (공 따라가기)
+    if random.randint(0, 1) == 0:
+        if ai_paddle.ycor() < ball.ycor() and abs(ai_paddle.ycor() - ball.ycor()) > 10:
+            ai_paddle.sety(ai_paddle.ycor() + 0.5)  # 속도를 0.2에서 0.5로 증가
+        elif ai_paddle.ycor() > ball.ycor() and abs(ai_paddle.ycor() - ball.ycor()) > 10:
+            ai_paddle.sety(ai_paddle.ycor() - 0.5)  # 속도를 0.2에서 0.5로 증가
+    if ai_paddle.ycor() < ball.ycor() and abs(ai_paddle.ycor() - ball.ycor()) > 10:
+        ai_paddle.sety(ai_paddle.ycor() + 0.5)  # 속도를 0.2에서 0.5로 증가
+    elif ai_paddle.ycor() > ball.ycor() and abs(ai_paddle.ycor() - ball.ycor()) > 10:
+        ai_paddle.sety(ai_paddle.ycor() - 0.5)  # 속도를 0.2에서 0.5로 증가
+
+       # 패들 충돌 (AI)
+    if ball.xcor() > 340 and ai_paddle.ycor() - 50 < ball.ycor() < ai_paddle.ycor() + 50:
+        ball.setx(340)
+        ball.dx *= -1
+        # 공이 패들의 위쪽에 닿으면 위로, 아래쪽에 닿으면 아래로
+        if ball.ycor() > ai_paddle.ycor():
+            ball.dy = abs(ball.dy)
+        else:
+            ball.dy = -abs(ball.dy)
+        ball.dx *= 1.1  # 속도 증가
+        ball.dy *= 1.1  # 속도 증가 
+
+    # 공이 오른쪽 벽을 넘어가면 플레이어 점수 증가
+    if ball.xcor() > 390:
+        score_a += 1
+        update_score()
+        ball.goto(0, 0)
+        ball.dx *= -1  # 반대 방향으로 재시작
+        check_game_over()
+
+    # 공이 왼쪽 벽을 넘어가면 AI 점수 증가
+    if ball.xcor() < -390:
+        score_b += 1
+        update_score()
+        ball.goto(0, 0)
+        ball.dx *= -1  # 반대 방향으로 재시작
+        check_game_over()
+    
+    
