@@ -24,5 +24,16 @@ ai_paddle.color("red")
 ai_paddle.shapesize(stretch_wid=6, stretch_len=1)
 ai_paddle.penup()
 ai_paddle.goto(350, 0)
+
+# 공
+ball = turtle.Turtle()
+ball.speed(40)
+ball.shape("circle")
+ball.color("white")
+ball.penup()
+ball.goto(0, 0)
+ball.dx = 0.2  # 공의 x 속도
+ball.dy = 0.2  # 공의 y 속도
+
 win.update()
 win.mainloop()
