@@ -62,6 +62,12 @@ def reset_game():
     score_display.goto(0, 260)
     score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
 
+def reset_score():
+    global score_a, score_b
+    score_a = 0
+    score_b = 0
+    update_score()
+
 
 
 win.update()
