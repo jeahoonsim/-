@@ -161,6 +161,20 @@ while True:
         ball.dx *= 1.1  # 속도 증가
         ball.dy *= 1.1  # 속도 증가 
 
+    # 공이 오른쪽 벽을 넘어가면 플레이어 점수 증가
+    if ball.xcor() > 390:
+        score_a += 1
+        update_score()
+        ball.goto(0, 0)
+        ball.dx *= -1  # 반대 방향으로 재시작
+        check_game_over()
+
+    # 공이 왼쪽 벽을 넘어가면 AI 점수 증가
+    if ball.xcor() < -390:
+        score_b += 1
+        update_score()
+        ball.goto(0, 0)
+        ball.dx *= -1  # 반대 방향으로 재시작
+        check_game_over()
     
-    if game_over:
-        continue
+    
