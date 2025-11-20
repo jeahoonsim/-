@@ -47,6 +47,11 @@ score_display.hideturtle()
 score_display.goto(0, 260)
 score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
 
+# 점수 업데이트 함수
+def update_score():
+    score_display.clear()
+    score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
 
 
 win.update()
