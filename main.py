@@ -113,3 +113,15 @@ while True:
         ball.sety(-290)
         ball.dy *= -1  # 방향 반전
         ball.dy += random.uniform(-0.1, 0.1)  # 랜덤한 y 속도 추가 
+        
+    # 패들 충돌 (플레이어)
+    if ball.xcor() < -340 and player_paddle.ycor() - 50 < ball.ycor() < player_paddle.ycor() + 50:
+        ball.setx(-340)
+        ball.dx *= -1
+        # 공이 패들의 위쪽에 닿으면 위로, 아래쪽에 닿으면 아래로
+        if ball.ycor() > player_paddle.ycor():
+            ball.dy = abs(ball.dy)
+        else:
+            ball.dy = -abs(ball.dy)
+        ball.dx *= 1.1  # 속도 증가
+        ball.dy *= 1.1  # 속도 증가
