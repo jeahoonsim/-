@@ -103,4 +103,13 @@ while True:
     ball.sety(ball.ycor() + ball.dy)
     ball.speed(50)
 
-    
+   # 벽 충돌 (위, 아래)
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1  # 방향 반전
+        ball.dy += random.uniform(-0.1, 0.1)  # 랜덤한 y 속도 추가
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1  # 방향 반전
+        ball.dy += random.uniform(-0.1, 0.1)  # 랜덤한 y 속도 추가 
