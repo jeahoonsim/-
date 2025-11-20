@@ -83,6 +83,18 @@ def player_down():
 def stop_player():
     global player_paddle_dy
     player_paddle_dy = 0  # 이동 멈춤
-    
-win.update()
-win.mainloop()
+
+# 키 입력 설정
+win.listen()
+win.onkeypress(player_up, "Up")
+win.onkeypress(player_down, "Down")
+win.onkeyrelease(stop_player, "Up")
+win.onkeyrelease(stop_player, "Down")
+
+
+
+
+while True:
+    win.update()
+   
+    player_paddle.sety(player_paddle.ycor() + player_paddle_dy)
