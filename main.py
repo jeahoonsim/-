@@ -91,12 +91,24 @@ win.onkeypress(player_down, "Down")
 win.onkeyrelease(stop_player, "Up")
 win.onkeyrelease(stop_player, "Down")
 
+#게임 루프
+game_over = False
 
-
+def check_game_over():
+    global game_over
+    if score_a >= 1 or score_b >= 1: 
+        game_over = True
+        score_display.clear()
+        score_display.goto(0, 0)
+        score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+        score_display.goto(0, -30)
+        score_display.write("Game Over! Press Space to Restart", align="center", font=("Courier", 24, "normal"))
 
 while True:
     win.update()
-   
+
+    if game_over:
+        continue
     player_paddle.sety(player_paddle.ycor() + player_paddle_dy)
     # 공 이동
     ball.setx(ball.xcor() + ball.dx * 5)
@@ -148,3 +160,7 @@ while True:
             ball.dy = -abs(ball.dy)
         ball.dx *= 1.1  # 속도 증가
         ball.dy *= 1.1  # 속도 증가 
+
+    
+    if game_over:
+        continue
