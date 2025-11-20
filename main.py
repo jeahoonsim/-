@@ -25,6 +25,51 @@ ai_paddle.shapesize(stretch_wid=6, stretch_len=1)
 ai_paddle.penup()
 ai_paddle.goto(350, 0)
 
+
+# 공
+ball = turtle.Turtle()
+ball.speed(40)
+ball.shape("circle")
+ball.color("white")
+ball.penup()
+ball.goto(0, 0)
+ball.dx = 0.2  # 공의 x 속도
+ball.dy = 0.2  # 공의 y 속도
+
+# 점수판
+score_a = 0
+score_b = 0
+
+score_display = turtle.Turtle()
+score_display.speed(0)
+score_display.color("white")
+score_display.penup()
+score_display.hideturtle()
+score_display.goto(0, 260)
+score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
+# 점수 업데이트 함수
+def update_score():
+    score_display.clear()
+    score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
+def reset_game():
+    global game_over
+    ball.goto(0, 0)
+    ball.dx = 0.2
+    ball.dy = 0.2
+    game_over = False
+    score_display.clear()
+    score_display.goto(0, 260)
+    score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
+def reset_score():
+    global score_a, score_b
+    score_a = 0
+    score_b = 0
+    update_score()
+
+
 player_paddle_dy = 0
 
 def player_up():
