@@ -52,6 +52,16 @@ def update_score():
     score_display.clear()
     score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
 
+def reset_game():
+    global game_over
+    ball.goto(0, 0)
+    ball.dx = 0.2
+    ball.dy = 0.2
+    game_over = False
+    score_display.clear()
+    score_display.goto(0, 260)
+    score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
 
 
 win.update()
