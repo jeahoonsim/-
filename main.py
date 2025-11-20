@@ -31,6 +31,13 @@ def player_up():
     global player_paddle_dy
     player_paddle_dy = 1.5  # 이동 속도 설정
 
+def player_down():
+    global player_paddle_dy
+    player_paddle_dy = -1.5  # 이동 속도 설정
+
+def stop_player():
+    global player_paddle_dy
+    player_paddle_dy = 0  # 이동 멈춤
     
 win.update()
 win.mainloop()
