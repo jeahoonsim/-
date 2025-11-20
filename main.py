@@ -111,7 +111,10 @@ while True:
 
     if game_over:
         continue
-    player_paddle.sety(player_paddle.ycor() + player_paddle_dy)
+    #벽 넘어가지 마
+    new_player_y = player_paddle.ycor() + player_paddle_dy
+    if new_player_y < 240 and new_player_y > -240:
+        player_paddle.sety(new_player_y)
     # 공 이동
     ball.setx(ball.xcor() + ball.dx * 5)
     ball.sety(ball.ycor() + ball.dy)
