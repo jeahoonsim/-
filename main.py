@@ -35,5 +35,19 @@ ball.goto(0, 0)
 ball.dx = 0.2  # 공의 x 속도
 ball.dy = 0.2  # 공의 y 속도
 
+# 점수판
+score_a = 0
+score_b = 0
+
+score_display = turtle.Turtle()
+score_display.speed(0)
+score_display.color("white")
+score_display.penup()
+score_display.hideturtle()
+score_display.goto(0, 260)
+score_display.write(f"Player: {score_a}  AI: {score_b}", align="center", font=("Courier", 24, "normal"))
+
+
+
 win.update()
 win.mainloop()
