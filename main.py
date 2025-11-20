@@ -90,6 +90,8 @@ win.onkeypress(player_up, "Up")
 win.onkeypress(player_down, "Down")
 win.onkeyrelease(stop_player, "Up")
 win.onkeyrelease(stop_player, "Down")
+win.onkeypress(reset_game, "space")
+win.onkeypress(reset_score, "Return")  # 엔터키로 점수 초기화
 
 #게임 루프
 game_over = False
