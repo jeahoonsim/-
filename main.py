@@ -98,3 +98,9 @@ while True:
     win.update()
    
     player_paddle.sety(player_paddle.ycor() + player_paddle_dy)
+    # 공 이동
+    ball.setx(ball.xcor() + ball.dx * 5)
+    ball.sety(ball.ycor() + ball.dy)
+    ball.speed(50)
+
+    
