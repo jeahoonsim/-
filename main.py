@@ -25,6 +25,7 @@ ai_paddle.shapesize(stretch_wid=6, stretch_len=1)
 ai_paddle.penup()
 ai_paddle.goto(350, 0)
 
+
 # 공
 ball = turtle.Turtle()
 ball.speed(40)
@@ -69,6 +70,19 @@ def reset_score():
     update_score()
 
 
+player_paddle_dy = 0
 
+def player_up():
+    global player_paddle_dy
+    player_paddle_dy = 1.5  # 이동 속도 설정
+
+def player_down():
+    global player_paddle_dy
+    player_paddle_dy = -1.5  # 이동 속도 설정
+
+def stop_player():
+    global player_paddle_dy
+    player_paddle_dy = 0  # 이동 멈춤
+    
 win.update()
 win.mainloop()
